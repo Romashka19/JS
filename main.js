@@ -1,6 +1,8 @@
 let btn= document.getElementById('testBtn');
 console.log(btn);
-btn.onmousedown = function (event) {
+
+btn.onclick = function (event) {
+    console.log("start");
     let coord = getCoord(btn);
     let shiftX = event.pageX - coord.left;
     let shiftY = event.pageY - coord.top;
@@ -20,9 +22,9 @@ btn.onmousedown = function (event) {
 
     document.addEventListener('mousemove', onMouseMove);
 
-    btn.onmouseup = function () {
+    btn.onclick = function () {
         document.removeEventListener('mousemove', onMouseMove);
-        btn.onmouseup = null;
+        console.log("stop");
     }
     function getCoord(elem) {
         var box = elem.getBoundingClientRect();
@@ -31,4 +33,5 @@ btn.onmousedown = function (event) {
             left: box.left + pageXOffset
         };
     }
+
 }
