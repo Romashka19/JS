@@ -1,7 +1,5 @@
-let btn= document.getElementsByTagName('button');
-let bul = btn[1];
-console.log(bul);
-
+let btn= document.getElementById('testBtn');
+console.log(btn);
 btn.onmousedown = function (event) {
     let coord = getCoord(btn);
     let shiftX = event.pageX - coord.left;
