@@ -1,35 +1,49 @@
 let btn= document.getElementById('testBtn');
-console.log(btn);
 
+btn.onclick = up;
+function up(event) {
+    btn.style.position = 'absolute';
+    btn.style.zIndex = 1000;
+    moveAt(event);
+    document.onmousemove = move;
+    btn.onclick = down;
+}
 
-btn.onclick = function up(event) {
+function moveAt(event) {
+    btn.style.left = event.pageX - btn.offsetWidth / 2 +'px';
+    btn.style.top = event.pageY - btn.offsetHeight / 2 +'px';
+}
+
+function move(event) {
+    moveAt(event);
+}
+
+function down() {
+    document.onmousemove = null;
+    btn.onclick = up;
+}
+
+//old code nested functions
+/*btn.onclick = function up(event) {
     console.log("up");
-    let coord = getCoord(btn);
-    let shiftX = event.pageX - coord.left;
-    let shiftY = event.pageY - coord.top;
 
     btn.style.position = 'absolute';
     btn.style.zIndex = 1000;
     moveAt(event);
 
     function moveAt(event) {
-        btn.style.left = event.pageX - shiftX;
-        btn.style.top = event.pageY - shiftY;
+        btn.style.left = event.pageX - btn.offsetWidth / 2 +'px';
+        btn.style.top = event.pageY - btn.offsetHeight / 2 +'px';
     }
 
     document.onmousemove = function (event) {
         moveAt(event);
     }
-    btn.onclick = function () {
+
+    btn.onclick = function down() {
         document.onmousemove = null;
         console.log("down");
         btn.onclick = up;
     }
-    function getCoord(elem) {
-        var box = elem.getBoundingClientRect();
-        return {
-            top: box.top + pageYOffset,
-            left: box.left + pageXOffset
-        };
-    }
-}
+
+}*/
