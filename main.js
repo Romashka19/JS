@@ -1,35 +1,19 @@
-let btn= document.getElementById('testBtn');
-console.log(btn);
+let btn = document.getElementById('testBtn');
 
-
-btn.onclick = function up(event) {
-    console.log("up");
-    let coord = getCoord(btn);
-    let shiftX = event.pageX - coord.left;
-    let shiftY = event.pageY - coord.top;
-
-    btn.style.position = 'absolute';
-    btn.style.zIndex = 1000;
-    moveAt(event);
-
-    function moveAt(event) {
-        btn.style.left = event.pageX - shiftX;
-        btn.style.top = event.pageY - shiftY;
-    }
-
-    document.onmousemove = function (event) {
+let check = true;
+btn.onclick = function(event) {
+    if(check == true) {
+        btn.style.position = 'absolute';
+        btn.style.zIndex = 1000;
         moveAt(event);
-    }
-    btn.onclick = function () {
+        document.onmousemove = moveAt;
+        check = false;
+    } else {
         document.onmousemove = null;
-        console.log("down");
-        btn.onclick = up;
+        check = true;
     }
-    function getCoord(elem) {
-        var box = elem.getBoundingClientRect();
-        return {
-            top: box.top + pageYOffset,
-            left: box.left + pageXOffset
-        };
-    }
+}
+function moveAt(event) {
+    btn.style.left = event.pageX - btn.offsetWidth / 2 +'px';
+    btn.style.top = event.pageY - btn.offsetHeight / 2 +'px';
 }
